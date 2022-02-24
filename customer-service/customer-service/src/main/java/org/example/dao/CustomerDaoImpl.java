@@ -27,6 +27,8 @@ public class CustomerDaoImpl implements CustomerDao{
     @Override
     public List<Customer> displayAllCustomers() {
         List<Customer> customers=jdbcTemplate.query("select id,first_name,last_name,email from customer",new CustomerMapper());
+        jdbcTemplate.update("delete from customer where id=?",1);
+        jdbcTemplate.queryForObject("select email from customer where id=?",String.class,1);
         return customers;
     }
 }
